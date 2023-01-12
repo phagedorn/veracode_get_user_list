@@ -66,7 +66,7 @@ def main():
          email = user_name[0]
          print(email)
     else:
-       print ('You must specify either --all or a user with -u, --user, --team with teamid=7060b821-3c02-45ac-9c05-9bb458663be0')
+       print ('You must specify either --all or a user with -u, --user, --team with teamid=YOUR_TEAM_ID')
     exit(0)
 
 if __name__ == '__main__':
