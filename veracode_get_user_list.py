@@ -21,8 +21,8 @@ def main():
     parser.add_argument('-u', '--user', help='print attributes for this user',required=False)
     parser.add_argument('--all',default=False, action='store_true', help='If set to True information for all users will be generated', required=False)
     parser.add_argument('--file',default=False, action='store_true', help='If set to True information will be placed in a file called user_list.csv', required=False) 
-    parser.add_argument('--team', default=False, action='store_true', help='If set to True it will output the default team information', required=False)
-    parser.add_argument('-k', '--kwargs', nargs='*', action=ParseKwargs)
+    parser.add_argument('-t','--team', default=False, action='store_true', help='If set to True it will output the default team information', required=False)
+    parser.add_argument('-k', '--kwargs', default=False, nargs='*', action=ParseKwargs, help='Generic key value pair parsing to args', required=False)
     args = parser.parse_args()
     file_name = "user_list.csv"
 
