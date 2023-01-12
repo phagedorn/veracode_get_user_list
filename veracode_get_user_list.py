@@ -6,6 +6,13 @@ from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
 from veracode_api_py import VeracodeAPI as vapi
 headers = {"User-Agent": "Python HMAC Example"}
 
+class ParseKwargs(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        setattr(namespace, self.dest, dict())
+        for value in values:
+            key, value = value.split('=')
+            getattr(namespace, self.dest)[key] = value
+
 def main():
 
 # test comment
@@ -14,6 +21,8 @@ def main():
     parser.add_argument('-u', '--user', help='print attributes for this user',required=False)
     parser.add_argument('--all',default=False, action='store_true', help='If set to True information for all users will be generated', required=False)
     parser.add_argument('--file',default=False, action='store_true', help='If set to True information will be placed in a file called user_list.csv', required=False) 
+    parser.add_argument('--team', default=False, action='store_true', help='If set to True it will output the default team information', required=False)
+    parser.add_argument('-k', '--kwargs', nargs='*', action=ParseKwargs)
     args = parser.parse_args()
     file_name = "user_list.csv"
 
@@ -37,19 +46,27 @@ def main():
     elif (args.all):
        data = vapi().get_users()
        for user in data:
-          userguid = user["user_id"]
-          data2 = vapi().get_user(userguid)
-          if (str(data2["ip_restricted"]) == "True"):
-             usr_str = user["user_name"]+","+str(data2["ip_restricted"])+","+str(data2["allowed_ip_addresses"])
-          else:
-             usr_str = user["user_name"]+","+str(data2["ip_restricted"])
-          if (args.file):
-             print(usr_str, file=f)
-          else:
-             print(usr_str)
-             
+          if ( str(user["saml_user"]) == "True"):
+            userguid = user["user_id"]
+            data2 = vapi().get_user(userguid)
+            if (str(data2["ip_restricted"]) == "True"):
+               usr_str = user["user_name"]+","+str(data2["ip_restricted"])+","+str(data2["allowed_ip_addresses"])
+            else:
+               usr_str = user["user_name"]+","+str(data2["ip_restricted"])
+            if (args.file):
+               print(usr_str, file=f)
+            else:
+               print(usr_str)
+    elif(args.team):
+       teamids= args.kwargs
+       teamid=teamids.get("teamid")
+       team = vapi().get_team_by_id(teamid)
+       for user in team["users"]:
+         user_name = user["user_name"].split("-")
+         email = user_name[0]
+         print(user["first_name"],user["last_name"],email)
     else:
-       print ('You must specify either --all or a user with -u, --user ')
+       print ('You must specify either --all or a user with -u, --user, --team ')
     exit(0)
 
 if __name__ == '__main__':
