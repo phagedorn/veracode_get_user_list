@@ -2,6 +2,8 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
+variables:
+- group: veracode
 
 trigger:
 - main
@@ -14,5 +16,8 @@ steps:
   displayName: 'Run a one-line script'
 
 - script: |
+    pip install -r requirements.txt
+    export VERACODE_API_KEY_ID=$(veracode_api_key_id)
+    export VERACODE_API_KEY_SECRET=$(veracode_api_key_secret)
     python3 veracode_get_user_list.py --team --kwargs teamid=d36c3d0d-d002-48ea-8063-a8b6e24a98fa
   displayName: 'Run a multi-line script'
