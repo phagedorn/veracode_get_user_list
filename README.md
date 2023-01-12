@@ -29,6 +29,7 @@ Install dependencies:
     options:
       -h, --help            show this help message and exit
       -u USER, --user USER  print attributes for this user
+      -t, --team --kwargs teamid=YOUR_TEAM_ID to get all member usernames of a team
       --all                 If set to True information for all users will be generated
       --file                If set to True information will be placed in a file called user_list.csv
 

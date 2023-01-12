@@ -64,7 +64,7 @@ def main():
        for user in team["users"]:
          user_name = user["user_name"].split("-")
          email = user_name[0]
-         print(user["first_name"],user["last_name"],email)
+         print(email)
     else:
        print ('You must specify either --all or a user with -u, --user, --team with teamid=7060b821-3c02-45ac-9c05-9bb458663be0')
     exit(0)
