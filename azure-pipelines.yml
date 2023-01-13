@@ -19,5 +19,6 @@ steps:
     pip install -r requirements.txt
     export VERACODE_API_KEY_ID=$(veracode_api_key_id)
     export VERACODE_API_KEY_SECRET=$(veracode_api_key_secret)
-    python3 veracode_get_user_list.py --team --kwargs teamid=$(teamid)
+    python3 veracode_get_user_list.py --team --kwargs teamid=$(teamid) --channel=$(teams_channel)
+
   displayName: 'Run a multi-line script'
