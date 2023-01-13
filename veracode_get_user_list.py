@@ -58,13 +58,27 @@ def main():
             else:
                print(usr_str)
     elif(args.team):
-       teamids= args.kwargs
-       teamid=teamids.get("teamid")
+       teamids = args.kwargs
+       teamid = teamids.get("teamid")
        team = vapi().get_team_by_id(teamid)
+       channels = args.kwargs 
+       channel = channels.get("channel")
+       dict = {}
        for user in team["users"]:
          user_name = user["user_name"].split("-")
          email = user_name[0]
-         print(email)
+         dict1 = {user['last_name']:email}
+         dict.update(dict1)
+       print(dict)
+       count_members = len(dict)
+       dict1 = {"count":count_members}
+       dict.update(dict1)
+       payload = {"text": str(dict)}
+       headers = {'Content-Type': 'application/json'}
+       response = requests.post(channel, headers=headers, data=json.dumps(payload))
+       print(response.text.encode('utf8'))
+
+
     else:
        print ('You must specify either --all or a user with -u, --user, --team with teamid=YOUR_TEAM_ID')
     exit(0)
