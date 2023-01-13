@@ -24,6 +24,6 @@ steps:
     export TEAMID=$(teamid)
     echo "CHANNEL: $CHANNEL"
     echo "TEAMUD: $TEAMID"
-    python3 veracode_get_user_list.py --team --kwargs teamid="$TEAMID” channel="$CHANNEL”
+    #python3 veracode_get_user_list.py --team --kwargs teamid="$TEAMID” channel="$CHANNEL”
     echo "Done"
   displayName: 'Run a multi-line script'
