@@ -6,7 +6,11 @@ variables:
 - group: veracode
 
 trigger:
-- main
+- cron: "0 9 * * *"
+  displayName: Daily at 9am 
+  branches:
+    include:
+    - main
 
 pool:
   vmImage: ubuntu-latest
