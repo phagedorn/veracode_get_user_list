@@ -5,9 +5,9 @@
 variables:
 - group: veracode
 
-trigger:
+schedules:
 - cron: "0 9 * * *"
-  displayName: Daily at 9am 
+  displayName: "Daily at 9am" 
   branches:
     include:
     - main
