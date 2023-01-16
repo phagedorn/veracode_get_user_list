@@ -18,10 +18,10 @@ pool:
 steps:
 - bash: |
     pip install -r requirements.txt
-    export VERACODE_API_KEY_ID="$(veracode_api_key_id)"
-    export VERACODE_API_KEY_SECRET="$(veracode_api_key_secret)"
-    export CHANNEL="$(teams_channel)"
-    export TEAMID="$(teamid)"
+    export VERACODE_API_KEY_ID=$(veracode_api_key_id)
+    export VERACODE_API_KEY_SECRET=$(veracode_api_key_secret)
+    export CHANNEL=$(teams_channel)
+    export TEAMID=$(teamid)
     echo "Channel: $CHANNEL , TEAMID: $TEAMID"
     # python3 veracode_get_user_list.py --team --kwargs teamid="\$TEAMID” channel="\$CHANNEL”
   displayName: 'Run a multi-line script'
