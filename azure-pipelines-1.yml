@@ -13,5 +13,5 @@ steps:
 - bash: |
     export VERACODE_API_KEY_ID=$(veracode_api_key_id)
     export VERACODE_API_KEY_SECRET=$(veracode_api_key_secret)
-    python3 veracode_get_user_list.py --teamid $(teamid) --channel $(teams_channel)
+    python3 veracode_get_user_list.py --teamid $(teamid) --channel "$(teams_channel)""
   displayName: 'Request default team members'
