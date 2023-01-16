@@ -21,8 +21,6 @@ steps:
     export VERACODE_API_KEY_ID="$(veracode_api_key_id)"
     export VERACODE_API_KEY_SECRET="$(veracode_api_key_secret)"
     export CHANNEL="\$(teams_channel)"
-    # export TEAMID="$(teamid)"
-    # echo "CHANNEL: $CHANNEL"
-    # echo "TEAMUD: $TEAMID"
-    #python3 veracode_get_user_list.py --team --kwargs teamid="$TEAMID” channel="$CHANNEL”
+    export TEAMID="\$(teamid)"
+    python3 veracode_get_user_list.py --team --kwargs teamid="\$TEAMID” channel="\$CHANNEL”
   displayName: 'Run a multi-line script'
