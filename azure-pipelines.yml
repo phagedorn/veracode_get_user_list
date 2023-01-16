@@ -1,22 +1,17 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 variables:
 - group: veracode
 
 trigger:
-  - main
+- main
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
+- script: pip install -r requirements.txt
+  displayName: 'Install python requirements'
 - bash: |
-    pip install -r requirements.txt
     export VERACODE_API_KEY_ID=$(veracode_api_key_id)
     export VERACODE_API_KEY_SECRET=$(veracode_api_key_secret)
-    export CHANNEL=$(teams_channel)
-    export TEAMID=$(teamid)
-    # python3 veracode_get_user_list.py --team --kwargs teamid="\$TEAMID” channel="\$CHANNEL”
-  displayName: 'Run a multi-line script'
+    python3 veracode_get_user_list.py --teamid $(teamid) --channel "$(teams_channel)""
+  displayName: 'Request default team members'
