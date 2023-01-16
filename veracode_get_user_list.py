@@ -6,13 +6,6 @@ from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
 from veracode_api_py import VeracodeAPI as vapi
 headers = {"User-Agent": "Python HMAC Example"}
 
-class ParseKwargs(argparse.Action):
-    def __call__(self, parser, namespace, values, option_string=None):
-        setattr(namespace, self.dest, dict())
-        for value in values:
-            key, value = value.split('=')
-            getattr(namespace, self.dest)[key] = value
-
 def main():
 
 # test comment
@@ -22,7 +15,8 @@ def main():
     parser.add_argument('--all',default=False, action='store_true', help='If set to True information for all users will be generated', required=False)
     parser.add_argument('--file',default=False, action='store_true', help='If set to True information will be placed in a file called user_list.csv', required=False) 
     parser.add_argument('-t','--team', default=False, action='store_true', help='If set to True it will output the default team information', required=False)
-    parser.add_argument('-k', '--kwargs', default=False, nargs='*', action=ParseKwargs, help='Generic key value pair parsing to args', required=False)
+    parser.add_argument('-tid', '--teamid', help='print memvers of this team',required=False)
+    parser.add_argument('-c', '--channel', help='print attributes for this user',required=False)
     args = parser.parse_args()
     file_name = "user_list.csv"
 
@@ -57,12 +51,10 @@ def main():
                print(usr_str, file=f)
             else:
                print(usr_str)
-    elif(args.team):
-       teamids = args.kwargs
-       teamid = teamids.get('teamid')
+    elif(args.teamid):
+       teamid = args.teamid
        team = vapi().get_team_by_id(teamid)
-       channels = args.kwargs 
-       channel = channels.get('channel')
+       channel = args.channel 
        dict = {}
        for user in team['users']:
          user_name = user['user_name'].split("-")
@@ -74,6 +66,7 @@ def main():
        dict1 = {"count":count_members}
        dict.update(dict1)
        payload = {"text": str(dict)}
+       print(dict)
        headers = {'Content-Type': 'application/json'}
        response = requests.post(channel, headers=headers, data=json.dumps(payload))
        print(response.text.encode('utf8'))

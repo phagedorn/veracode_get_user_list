@@ -10,5 +10,6 @@ pool:
 steps:
 - script: pip install -r requirements.txt
   displayName: 'Install python requirements'
+- script:''
 - script:  python3 veracode_get_user_list.py --team --kwargs teamid=$TEAMID channel=$CHANNEL
   displayName: 'Request default team memebers'
