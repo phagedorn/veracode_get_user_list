@@ -20,7 +20,7 @@ steps:
     pip install -r requirements.txt
     export VERACODE_API_KEY_ID="$(veracode_api_key_id)"
     export VERACODE_API_KEY_SECRET="$(veracode_api_key_secret)"
-    export CHANNEL="$(teams_channel)"
+    export CHANNEL="\$(teams_channel)"
     # export TEAMID="$(teamid)"
     # echo "CHANNEL: $CHANNEL"
     # echo "TEAMUD: $TEAMID"
