@@ -64,7 +64,7 @@ def main():
        channels = args.kwargs 
        channel = channels.get('channel')
        dict = {}
-       for user in team['users]:
+       for user in team['users']:
          user_name = user['user_name'].split("-")
          email = user_name[0]
          dict1 = {user['last_name']:email}
