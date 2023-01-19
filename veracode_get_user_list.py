@@ -61,15 +61,18 @@ def main():
          email = user_name[0]
          dict1 = {user['last_name']:email}
          dict.update(dict1)
-       print(dict)
        count_members = len(dict)
        dict1 = {"count":count_members}
        dict.update(dict1)
        payload = {"text": str(dict)}
-       print(dict)
-       headers = {'Content-Type': 'application/json'}
-       response = requests.post(channel, headers=headers, data=json.dumps(payload))
-       print(response.text.encode('utf8'))
+       if ( count_members == 0 ):
+         print("No new members in group: default")
+       else:
+         print("Send message to MS Teams with new members")
+         print(dict)
+         headers = {'Content-Type': 'application/json'}
+         response = requests.post(channel, headers=headers, data=json.dumps(payload))
+         print(response.text.encode('utf8'))
 
 
     else:
